@@ -23,7 +23,8 @@ from receptions as r
          join doctors as d on r.doctor_id = d.id
          join services as s on r.service_id = s.id
          join reception_statuses rs on r.status_id = rs.id
-where d.id = ?'
+where d.id = ?
+order by d.last_name, r.ended_at'
             );
 
         $statement->execute([$doctorId]);
@@ -47,7 +48,8 @@ select d.id         as id,
 from receptions as r
          join doctors as d on r.doctor_id = d.id
          join services as s on r.service_id = s.id
-         join reception_statuses rs on r.status_id = rs.id'
+         join reception_statuses rs on r.status_id = rs.id
+         order by d.last_name, r.ended_at'
             )
             ->fetchAll(PDO::FETCH_CLASS, Reception::class);
     }
